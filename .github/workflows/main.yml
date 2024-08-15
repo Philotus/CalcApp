@@ -21,7 +21,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '7.x'  # або ваша версія .NET
+          dotnet-version: '8.0'
 
       # Відновлюємо залежності
       - name: Restore dependencies
@@ -31,9 +31,9 @@ jobs:
       - name: Build project
         run: dotnet build --configuration Release --no-restore
 
-      # Запускаємо конкретні тести
-      - name: Run specific tests with detailed output
-        run: dotnet test --no-restore --logger "console;verbosity=detailed"
+      # Запускаю тести
+    - name: Run tests
+      run: dotnet test --no-restore --verbosity normal
 
       # Виводимо повідомлення про помилки, якщо такі є
       - name: Check for test failures
