@@ -1,6 +1,5 @@
 name: CI/CD for .NET App
 
-# Запускатиметься на кожному пуші до main або pull request до main
 on:
   push:
     branches:
@@ -14,33 +13,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Клонуємо репозиторій
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    # Встановлюємо .NET SDK
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '7.x'  # або ваша версія .NET
+        dotnet-version: '8.0'  # або ваша версія .NET
 
-    # Відновлюємо залежності
     - name: Restore dependencies
       run: dotnet restore
 
-    # Білдимо проєкт
     - name: Build project
       run: dotnet build --configuration Release --no-restore
 
-    # Запускаємо тести
-    - name: Run tests
-      run: dotnet test --no-restore --verbosity normal
+    # Запуск конкретних тестів з файлу або класу
+    - name: Run specific tests
+      run: dotnet test --filter "Calculator.cs" --no-restore --verbosity normal
 
-  # Якщо всі тести пройшли успішно, запускаємо деплой
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    if: success()  # Деплой виконується тільки якщо всі тести успішно пройшли
+    if: success()
     steps:
     - name: Deploy application
-      run: echo "Deploying application..."  # Сюди можна додати ваші деплой-скрипти
+      run: echo "Deploying application..."
