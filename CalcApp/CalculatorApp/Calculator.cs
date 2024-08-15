@@ -15,7 +15,7 @@ namespace CalcApp.CalculatorApp
 
         public int Subtract(int a, int b)
         {
-            return a - b;
+            return a + b;
         }
 
         public int Multiply(int a, int b)
@@ -25,10 +25,6 @@ namespace CalcApp.CalculatorApp
 
         public float Divide(int a, int b)
         {
-            if (b == 0)
-            {
-                throw new DivideByZeroException("Cannot divide by zero.");
-            }
             return a / b;
         }
     }
